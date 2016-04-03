@@ -9,26 +9,32 @@ const int False = 0;
 int getRandNumber(int left, int right)
 {
     srand((unsigned)time(NULL));
-    int n = rand() % right;
-    while(n < left)
+    int n = rand() % 12;
+    int list[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    while(list[n] >= right)
     {
-        n = rand() % right;
+        n = rand() % 12;
     }
-    return n;
+    return list[n];
 }
 
-int getPow(int n, int e)
+int getMontgomeryPow(int n, int e, int m)
 {
-	int tmp = n;
-    while(e-- > 1)
+	int tmp = 1;
+    while(e > 0)
     {
-        n *= tmp;
+        if((e & 1) == 1)
+        {
+            tmp = (tmp * n) % m;
+        }
+        n = (n * n) % m;
+        e >>= 1;
     }
-    return n;
+    return tmp;
 }
 
 int isPrime(int n)
-// is n a prime, return True or False
+// is n a prime? return True or False
 {
     // is n <= 2
     if(n <= 2)
@@ -56,7 +62,7 @@ int isPrime(int n)
     for(i = 0; i < S; i++)
     {
         int a = getRandNumber(2, n);
-        int x = getPow(a, u) % n;
+        int x = getMontgomeryPow(a, u, n);
         int y, tmp = u;
         while(tmp < n)
         {
