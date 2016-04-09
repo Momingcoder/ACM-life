@@ -6,21 +6,21 @@
 const int True = 1;
 const int False = 0;
 
-int getRandNumber(int left, int right)
+int getRandNumber(long limit)
 {
     srand((unsigned)time(NULL));
     int n = rand() % 12;
     int list[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-    while(list[n] >= right)
+    while(list[n] >= limit)
     {
         n = rand() % 12;
     }
     return list[n];
 }
 
-int getMontgomeryPow(int n, int e, int m)
+long getMontgomeryPow(int n, long e, long m)
 {
-	int tmp = 1;
+	long tmp = 1;
     while(e > 0)
     {
         if((e & 1) == 1)
@@ -33,7 +33,7 @@ int getMontgomeryPow(int n, int e, int m)
     return tmp;
 }
 
-int isPrime(int n)
+int isPrime(long n)
 // is n a prime? return True or False
 {
     // is n <= 2
@@ -52,7 +52,7 @@ int isPrime(int n)
         return False;
     }
 
-    int u = n - 1; // u is the exponent
+    long u = n - 1; // u is the exponent
     while(u % 2 == 0)
     {
         u /= 2;
@@ -61,9 +61,9 @@ int isPrime(int n)
     int i, S = 5; // execute S times
     for(i = 0; i < S; i++)
     {
-        int a = getRandNumber(2, n);
-        int x = getMontgomeryPow(a, u, n);
-        int y, tmp = u;
+        int a = getRandNumber(n);
+        long x = getMontgomeryPow(a, u, n);
+        long y, tmp = u;
         while(tmp < n)
         {
             y = (x * x) % n;
@@ -84,7 +84,8 @@ int isPrime(int n)
 
 int main(void)
 {
-    int num, i, x;
+    int i, num;
+	long x;
     scanf("%d", &num);
     for(i = 0; i < num; i++)
     {
