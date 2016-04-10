@@ -15,7 +15,7 @@ def get_tile_index(k, c, s):
     """
     if k == s:
         result = [x for x in range(1, k +1)]
-    elif k + 1 == S:
+    elif k - 1 == s:
         result = [x for x in range(2, k +1)]
     else:
         result = []
